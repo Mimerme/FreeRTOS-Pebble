@@ -23,8 +23,9 @@ void rebbleos_init(void)
     
     rwatch_neographics_init();
     appmanager_init();
+    system_status.app_mode = SYSTEM_IN_MAIN_MENU;
 
-    system_status.booted = 1
+    system_status.booted = 1;
 
     // set up main rebble task thread
     
