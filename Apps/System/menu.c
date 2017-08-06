@@ -25,33 +25,53 @@ coded up
 
 #define STANDARD_MENU_COUNT 4
 
+//Pointing to the currently selected item
 static int8_t _menu_index = 0;
-MenuItem _main_menu[4];
+//The currently visible 4 items on the screen
+MenuItem _main_menu[STANDARD_MENU_COUNT];
 static char *_selected_menu_name;
 static uint8_t _app_count = 0;
 
 #define MENU_MAIN       0
 #define MENU_WATCH      1
 #define MENU_CONSOLE    2
-
 uint8_t _menu_type = MENU_MAIN;
 
 void menu_init(void)
 {
-    
+   //NOTE: Is there a limit to how many apps can be loaded at once?
+   //Load the apps into the main menu using data from their headers
+   
+   int index = 0;
+
+   App *child = app_manager_get_apps_head();
+
+   //Iterate to last node
+   do{
+    _main_menu[index].text = child->header->name;
+    //Maybe the sub-text should be the version num?
+    _main_menu[index].sub_text = child->header->company;
+    _main_menu[index].image_res_id = child->header->icon_resource_id;
+    child = child->next;
+
+   }while(child->next);
+
     printf("menu init\n");
-    _main_menu[0].text       = "Watchfaces";
-    _main_menu[0].sub_text   = "Will scan flash";
-    _main_menu[0].image_res_id = 25;
-    _main_menu[1].text       = "Dump Flash";
-    _main_menu[1].sub_text   = "Device will lock";
-    _main_menu[1].image_res_id = 24;
-    _main_menu[2].text       = "RebbleOS";
-    _main_menu[2].sub_text   = "... v0.0.0.1";
-    _main_menu[2].image_res_id = 24;
-    _main_menu[3].text       = "... Soon (TM)";
-    _main_menu[3].sub_text   = "";
-    _main_menu[3].image_res_id = 25;
+    _main_menu[index].text       = "Watchfaces";
+    _main_menu[index].sub_text   = "Will scan flash";
+    _main_menu[index].image_res_id = 25;
+    index++;
+    _main_menu[index].text       = "Dump Flash";
+    _main_menu[index].sub_text   = "Device will lock";
+    _main_menu[index].image_res_id = 24;
+    index++;
+    _main_menu[index].text       = "RebbleOS";
+    _main_menu[index].sub_text   = "... v0.0.0.1";
+    _main_menu[index].image_res_id = 24;
+    index++;
+    _main_menu[index].text       = "... Soon (TM)";
+    _main_menu[index].sub_text   = "";
+    _main_menu[index].image_res_id = 25;
 }
 
 void menu_draw_list(MenuItem menu[], uint8_t offsetx, uint8_t offsety)
