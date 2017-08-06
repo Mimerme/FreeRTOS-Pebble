@@ -11,6 +11,11 @@ smartphone applications that are designed to work with Pebble.
 RebbleOS needs your help! This section discusses what you need to know to
 get started working on the project.
 
+### Requirements
+
+* Follow the instructions for installing the Pebble SDK https://developer.pebble.com/sdk/install/
+* Confirm that the sdk installed by running `pebble` and `qemu-pebble` in your command line
+
 ### Building
 
 RebbleOS currently can be built for `snowy` (Pebble Time and Pebble Time
@@ -18,9 +23,9 @@ Steel) and `tintin` (Pebble and Pebble Steel).  To build RebbleOS, follow
 these steps:
 
 * Obtain a checkout of the RebbleOS source code.
-* Create a `localconfig.mk` if your cross-compiler is in an unusual location.  For instance, if you have the SDK installed in `/home/me`, add the following line to your `localconfig.mk`: `PEBBLE_TOOLCHAIN_PATH=/home/me/Pebble/SDK/pebble-sdk-4.5-linux64/arm-cs-tools/bin`.  For more information on `localconfig.mk` variables, consult the `Makefile`.
+* Create a `localconfig.mk` if your the SDK is in an unusual location.  For instance, if you have the SDK installed in `/home/me`, add the following line to your `localconfig.mk`: `PEBBLE_TOOLCHAIN_PATH=/home/me/Pebble/SDK/pebble-sdk-4.5-linux64/arm-cs-tools/bin`.  For more information on `localconfig.mk` variables, consult the `Makefile`.
 * Build the firmware: `make`
-* If you wish to run the firmware in `qemu`, copy the resources necessary into `Resources/`.  Take a look at `Utilities/mk_resources.sh` for more information on that.
+* If you wish to run the firmware in `qemu-pebble`, edit the `SDK` variable to point to your Pebble SDK and run the script. It will produce a folder under `Utilities/Resources`. Copy the contents into the `Resources` folder located in the root of the repo.
 * To run the firmware in `qemu`, try `make snowy_qemu`.
 
 If you wish to build firmware to run on your device, you may also wish to

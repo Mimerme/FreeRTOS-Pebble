@@ -1,21 +1,7 @@
 #!/bin/bash
 
-
-BREW_SDK="$HOME/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble"
-if hash brew 2>/dev/null;then
-	BREW=1
-fi
-
-if [ $# -eq 1 ];then
-	SDK=$1
-else 
-	if [ $BREW -eq 1 ];then
-		SDK=$BREW_SDK
-	else
-		echo "usage: $0 SDK-path"
-		exit 1
-	fi
-fi
+#Your SDK Location
+SDK="$HOME/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble"
 
 echo "Extracting resources from $SDK..."
 if [ ! -f "$SDK/aplite/qemu/qemu_micro_flash.bin" ]; then
